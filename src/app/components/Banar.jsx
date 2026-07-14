@@ -1,15 +1,24 @@
+"use client"
 import Image from 'next/image';
 import React from 'react';
 import { GrLinkNext } from 'react-icons/gr';
+import {motion} from "motion/react"
 
 const Banar = () => {
     return (
-       <section className="bg-gradient-to-br from-sky-50 via-white to-emerald-50">
+       <section className="bg-gradient-to-br from-sky-300 via-white to-emerald-200">
       <div className="max-w-full mx-auto px-8 py-3">
-        <div className="grid lg:grid-cols-2 items-center gap-14">
 
-          {/* Left Content */}
-          <div>
+             <div className="grid lg:grid-cols-2 items-center gap-14">
+
+        <motion.div 
+         initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}>
+            
+
+              
+              <div >
             <p className="inline-block px-4 py-1 rounded-full bg-sky-100 text-sky-700 font-semibold text-sm">
               💙 Trusted Healthcare Platform
             </p>
@@ -53,8 +62,27 @@ const Banar = () => {
             </div>
           </div>
 
-          {/* Right Image */}
-          <div className="flex justify-center">
+        </motion.div> 
+    
+
+         <motion.div
+  initial={{
+    opacity: 0,
+    x: 80,
+    scale: 0.9,
+  }}
+  animate={{
+    opacity: 1,
+    x: 0,
+    scale: 1,
+  }}
+  transition={{
+    duration: 1,
+    ease: "easeOut",
+  }}
+>  
+
+<div className="flex justify-center">
             <div className="relative">
               {/* Background Blur */}
               <div className="absolute inset-0 bg-sky-200 blur-3xl opacity-30 rounded-full"></div>
@@ -69,6 +97,15 @@ const Banar = () => {
               />
             </div>
           </div>
+
+
+
+
+</motion.div>
+          
+
+          {/* Right Image */}
+          
 
         </div>
       </div>
