@@ -1,3 +1,4 @@
+import About from "./components/About";
 import Banar from "./components/Banar";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
 
        
       <Banar></Banar>
+      <About></About>
 
 
 

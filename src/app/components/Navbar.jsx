@@ -41,9 +41,6 @@ const Navbar = () => {
           <button>Services</button>
           </li>
 
-          <li>
-            <button>About</button>
-          </li>
 
           <li>
             <button>Contact</button>
@@ -70,10 +67,6 @@ const Navbar = () => {
 
         <li>
             <button className="rounded-full">Services</button>
-        </li>
-
-        <li>
-          <button className="rounded-full">About</button>
         </li>
 
         <li>
