@@ -1,5 +1,6 @@
 import About from "./components/About";
 import Banar from "./components/Banar";
+import Service from "./components/Service";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
        
       <Banar></Banar>
       <About></About>
+      <Service></Service>
 
 
 
