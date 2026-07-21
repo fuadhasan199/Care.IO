@@ -1,16 +1,18 @@
+
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const Navbar = () => {
     return (
-      <div className="sticky top-0 z-50 border-b border-base-300 bg-base-100/80 backdrop-blur-lg shadow-sm">
+    <div className="sticky top-0 z-50 border-b border-base-300 bg-base-100/80 backdrop-blur-lg shadow-sm">
 
   <div className="navbar max-w-7xl mx-auto px-4">
 
-    {/* Left */}
+    
     <div className="navbar-start">
 
-      {/* Mobile Menu */}
+     
       <div className="dropdown lg:hidden">
         <label tabIndex={0} className="btn btn-ghost btn-circle">
           <svg
@@ -57,7 +59,7 @@ const Navbar = () => {
       </div>
     </div>
 
-    {/* Desktop Menu */}
+    
     <div className="navbar-center hidden lg:flex">
       <ul className="menu menu-horizontal gap-2 rounded-full bg-base-200 px-3 py-2">
 
@@ -76,7 +78,7 @@ const Navbar = () => {
       </ul>
     </div>
 
-    {/* Right */}
+    
     <div className="navbar-end gap-2">
 
       <label className="input input-bordered rounded-full flex items-center gap-2 w-40 md:w-56">
@@ -105,7 +107,8 @@ const Navbar = () => {
       </label>
 
       <button className="btn btn-primary rounded-full px-6 hidden sm:flex">
-        Login
+       <Link href="/login">Login</Link>
+       
       </button>
 
     </div>
