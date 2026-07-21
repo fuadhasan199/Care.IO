@@ -36,26 +36,41 @@ const Navbar = () => {
           className="menu menu-sm dropdown-content mt-3 w-64 rounded-2xl bg-base-100 p-3 shadow-xl border border-base-300"
         >
           <li>
-            <button>Home</button>
+            <button>
+              <Link href="/">
+              Home</Link>
+            </button>
           </li>
 
           <li>
-          <button>Services</button>
+            <button>
+              <Link href="/services">
+                Services
+              </Link>
+            </button>
           </li>
 
 
           <li>
-            <button>Contact</button>
+            <button>
+              <Link href="/contact">
+                Contact
+              </Link>
+            </button>
           </li> 
            <li>
-            <button>Login</button>
+            <button> 
+                <Link href="/login">Login</Link>
+            </button>
           </li>
         </ul>
       </div>
 
       {/* Logo */}
-      <div className="">
+      <div className=""> 
+         <Link href="/">  
          <Image src="/icon2.png"alt="Logo" width={115} height={80} className="rounded-full" />
+         </Link>
       </div>
     </div>
 
@@ -64,15 +79,20 @@ const Navbar = () => {
       <ul className="menu menu-horizontal gap-2 rounded-full bg-base-200 px-3 py-2">
 
         <li>
-          <button className="rounded-full">Home</button>
+          <button className="rounded-full">
+            <Link href="/">Home</Link>
+          </button>
         </li>
+          <li>
+          <button className="rounded-full">
+            <Link href="/services">Services</Link>
+          </button>
+        </li> 
 
-        <li>
-            <button className="rounded-full">Services</button>
-        </li>
-
-        <li>
-          <button className="rounded-full">Contact</button>
+         <li>
+            <button className="rounded-full">
+              <Link href="/contact">Contact</Link>
+            </button>
         </li>
 
       </ul>
