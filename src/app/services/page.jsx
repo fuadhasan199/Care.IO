@@ -1,3 +1,5 @@
+import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 async function GetServices() {
@@ -30,10 +32,8 @@ const Services = async () => {
       {/* Heading & description End */}
 
       {/* Search bar and filter */}
-      <div className="flex items-center justify-between mx-12 p-8">
-        <div>
-          <input type="text" placeholder="Search Services" className="input input-md" />
-        </div>
+      <div className="flex  items-end justify-end m-5 p-2">
+       
 
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn m-1">Filter</div>
@@ -53,7 +53,9 @@ const Services = async () => {
           >
             {/* Image */}
             <div className="relative h-48 w-full overflow-hidden">
-              <img
+              <Image 
+              width={500}
+              height={500}
                 src={s.image}
                 alt={s.title}
                 className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -95,9 +97,9 @@ const Services = async () => {
                   </span>
                   <span className="text-xs text-slate-400"> /day</span>
                 </div>
-                <button className="px-4 py-2 rounded-full bg-[#1F4D42] text-white text-sm font-semibold hover:bg-[#163931] transition-colors">
+                <Link href={`/services/${s._id}`} className="px-4 py-2 rounded-full bg-[#1F4D42] text-white text-sm font-semibold hover:bg-[#163931] transition-colors flex items-center justify-center">
                   Book Now
-                </button>
+                </Link>
               </div>
             </div>
           </div>
