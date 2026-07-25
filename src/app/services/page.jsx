@@ -9,6 +9,7 @@ async function GetServices() {
 
 const Services = async () => {
   const services = await GetServices()
+  console.log(services)
 
   return (
     <div className="bg-base-100 p-5">
