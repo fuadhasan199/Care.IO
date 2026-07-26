@@ -2,9 +2,6 @@
 import BackButton from "@/app/components/Backbtn";
 import Image from "next/image";
 
-
-import { IoArrowBack } from "react-icons/io5";
-
 async function GetService(id) {
   const res = await fetch(`http://localhost:3000/api/services/${id}`, { cache: "no-store" }) 
   return res.json()

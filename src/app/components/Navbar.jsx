@@ -1,9 +1,12 @@
-
+"use client"
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 
-const Navbar = () => {
+const Navbar = () => { 
+  const router=useRouter() 
+  const [search,setSearch]=useState("")
     return (
     <div className="sticky top-0 z-50 border-b border-base-300 bg-base-100/80 backdrop-blur-lg shadow-sm">
 
@@ -99,7 +102,11 @@ const Navbar = () => {
     </div>
 
     
-    <div className="navbar-end gap-2">
+    <form className="navbar-end gap-2" onSubmit={(e)=>{
+          e.preventDefault()
+          if(search.trim() ==="") return 
+          router.push(`/services?search=${encodeURIComponent(search)}`)
+    }}>
 
       <label className="input input-bordered rounded-full flex items-center gap-2 w-40 md:w-56">
 
@@ -121,8 +128,10 @@ const Navbar = () => {
         <input
           type="text"
           className="grow"
-          placeholder="Search..."
-        />
+          placeholder="Sick, Elderly And Baby Care "
+          value={search} 
+          onChange={(e)=>setSearch(e.target.value)}
+          />
 
       </label>
 
@@ -131,7 +140,7 @@ const Navbar = () => {
        
       </button>
 
-    </div>
+    </form>
 
   </div>
 

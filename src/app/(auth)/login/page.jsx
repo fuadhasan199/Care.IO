@@ -25,7 +25,7 @@ const Login = () => {
 
   const handleGoogleLogin = () => {
     // signIn("google")
-    console.log("Google Login");
+    console.log("Google Login")
   };
 
   return (

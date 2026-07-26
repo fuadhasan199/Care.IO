@@ -2,14 +2,16 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-async function GetServices() {
-  const res = await fetch(`http://localhost:3000/api/services`, { cache: "no-store" })
+async function GetServices(search) { 
+  const res = await fetch(`http://localhost:3000/api/services?search=${search}`, { cache: "no-store" })
   return res.json()
 }
 
-const Services = async () => {
-  const services = await GetServices()
-  console.log(services)
+const Services = async ({searchParams}) => {
+   const params =await searchParams
+   const search =params.search || ""
+  const services = await GetServices(search)
+  
 
   return (
     <div className="bg-base-100 p-5">
@@ -32,18 +34,8 @@ const Services = async () => {
       </div>
       {/* Heading & description End */}
 
-      {/* Search bar and filter */}
-      <div className="flex  items-end justify-end m-5 p-2">
-       
-
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn m-1">Filter</div>
-          <ul tabIndex="-1" className="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-            <li><a>Item 1</a></li>
-            <li><a>Item 2</a></li>
-          </ul>
-        </div>
-      </div>
+     
+  
 
       {/* Service cards */}
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 pb-12">
