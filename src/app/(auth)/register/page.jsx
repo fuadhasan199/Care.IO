@@ -1,37 +1,61 @@
 "use client"
 import React, { useState } from 'react';
 import { Eye, EyeOff, Lock, Mail, User, Phone, IdCard, Check, X, ArrowRight } from 'lucide-react';
+import { postUser } from '@/app/actions/server/auth';
+import { useRouter } from 'next/navigation';
+import { signIn } from 'next-auth/react';
 
 const Register = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const [showPassword, setShowPassword] = useState(false)
+  const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('');
   const [formData, setFormData] = useState({
     nid: '',
     name: '',
     email: '',
     contact: '',
     password: '',
-  });
+  }); 
+  const router=useRouter()
 
   // Password validation checks
   const passwordRules = {
     length: formData.password.length >= 6,
-    uppercase: /[A-Z]/.test(formData.password),
-    lowercase: /[a-z]/.test(formData.password),
+    uppercase: /[A-Z]/.test(formData.password),  
+    lowercase: /[a-z]/.test(formData.password),  
   };
 
   const isPasswordValid = Object.values(passwordRules).every(Boolean);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!isPasswordValid) return;
+  const handleSubmit =async (e) => {
+    e.preventDefault() 
+    setLoading(true)
+    setError('') 
 
-    console.log('Registration Submitted:', formData);
-    // Redirect to Booking Page after registration
-    window.location.href = '/booking';
+    const result=await postUser(formData) 
+     if (!result.success) {
+      setError(result.message || "Registration failed");
+      setLoading(false);
+      return;
+    } 
+    // signUp then automatic sign in
+     const signInResult = await signIn('credentials', {
+      email: formData.email,
+      password: formData.password,
+      redirect: false,
+    });
+         setLoading(false); 
+
+           if (signInResult?.error) {
+      router.push('/login');
+    } else {
+      router.push('/');
+    }
+   
   };
 
   const handleGoogleSignUp = () => {
-    console.log('Google Sign Up Clicked');
+   
     // Google Auth Logic here
   };
 
@@ -59,7 +83,7 @@ const Register = () => {
               <input
                 type="text"
                 required
-                placeholder="John Doe"
+                placeholder="Your Name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 className="w-full pl-10 pr-4 py-2.5 bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-indigo-400 transition-all text-sm"
@@ -180,7 +204,9 @@ const Register = () => {
               </div>
             </div>
           </div>
-
+          {error && (
+  <p className="text-sm text-red-500 text-center">{error}</p>
+)}
           {/* Submit Button */}
           <button
             type="submit"
