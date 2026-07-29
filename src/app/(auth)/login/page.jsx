@@ -10,17 +10,37 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
+import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading]=useState(false) 
+  const [error,setError]=useState("")
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  });
+  }); 
+  const router=useRouter()
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    console.log("Login Submitted:", formData);
+     
+  setLoading(true) 
+  setError("") 
+  const result= await signIn('credentials', {
+        email:formData.email,
+        password:formData.password,
+        redirect:false,
+  }) 
+  setLoading(false) 
+  if(result?.error){
+    setError(result.error) 
+    return
+  }  
+  router.push("/")
+
+
   };
 
   const handleGoogleLogin = () => {
