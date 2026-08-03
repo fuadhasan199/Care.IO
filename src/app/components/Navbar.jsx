@@ -1,4 +1,5 @@
 "use client"
+import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -6,6 +7,7 @@ import React, { useState } from 'react';
 
 const Navbar = () => { 
   const router=useRouter() 
+  const {data:session,status}=useSession()
   const [search,setSearch]=useState("")
     return (
     <div className="sticky top-0 z-50 border-b border-base-300 bg-base-100/80 backdrop-blur-lg shadow-sm">
@@ -61,11 +63,17 @@ const Navbar = () => {
               </Link>
             </button>
           </li> 
-           <li>
-            <button> 
-                <Link href="/login">Login</Link>
-            </button>
-          </li>
+          {status === "loading" ? null : session ? (
+  <li>
+    <button onClick={() => signOut({ callbackUrl: "/" })}>
+      Logout
+    </button>
+  </li>
+) : (
+  <li>
+    <Link href="/login">Login</Link>
+  </li>
+)}
         </ul>
       </div>
 
@@ -135,10 +143,30 @@ const Navbar = () => {
 
       </label>
 
-      <button className="btn btn-primary rounded-full px-6 hidden sm:flex">
-       <Link href="/login">Login</Link>
-       
-      </button>
+       <div className="flex items-center gap-3">
+        {/* Loading হলে কিছুক্ষণ কিছু দেখাবে না */}
+        {status === "loading" ? null : session ? (
+          <>
+            <span className="hidden md:block font-medium">
+              {session.user?.name || session.user?.email}
+            </span>
+
+            <button
+              onClick={() => signOut({ callbackUrl: "/" })}
+              className="btn btn-error rounded-full px-6 hidden sm:flex"
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <Link
+            href="/login"
+            className="btn btn-primary rounded-full px-6 hidden sm:flex"
+          >
+            Login
+          </Link>
+        )}
+      </div>
 
     </form>
 
