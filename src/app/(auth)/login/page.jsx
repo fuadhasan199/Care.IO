@@ -12,6 +12,7 @@ import {
 import { FcGoogle } from "react-icons/fc";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,29 +24,38 @@ const Login = () => {
   }); 
   const router=useRouter()
 
-  const handleSubmit =async (e) => {
-    e.preventDefault();
-     
-  setLoading(true) 
-  setError("") 
-  const result= await signIn('credentials', {
-        email:formData.email,
-        password:formData.password,
-        redirect:false,
-  }) 
-  setLoading(false) 
-  if(result?.error){
-    setError(result.error) 
-    return
-  }  
-  router.push("/")
+  const handleSubmit = async (e) => {
+  e.preventDefault();
+  setLoading(true);
+  setError("");
+  const result = await signIn('credentials', {
+    email: formData.email,
+    password: formData.password,
+    redirect: false,
+  });
+  setLoading(false);
 
+  if (result?.error) {
+    setError(result.error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Login Failed',
+      text: 'Invalid email or password',
+    });
+    return;
+  }
 
-  };
+  Swal.fire({
+    icon: 'success',
+    title: 'Welcome back!',
+    timer: 1500,
+    showConfirmButton: false,
+  });
+  router.push("/");
+};
 
   const handleGoogleLogin = () => {
-    // signIn("google")
-    console.log("Google Login")
+   signIn("google", { callbackUrl: "/" });
   };
 
   return (

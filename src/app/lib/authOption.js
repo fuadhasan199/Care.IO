@@ -1,7 +1,7 @@
 import Credentials from "next-auth/providers/credentials"
 import clientPromise from "./dbConnect"
 import bcrypt from "bcrypt"; 
-
+import GoogleProvider from "next-auth/providers/google";
 export const authOptions = {
   // Configure one or more authentication providers
   providers: [ 
@@ -37,20 +37,46 @@ export const authOptions = {
   
       
     }
+  }) 
+  , 
+   GoogleProvider({
+    clientId: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET
   })
-   
+    
     
   ], 
   session: {
     strategy: "jwt",
   }, 
   callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.role = user.role
-        token.id = user.id
+    async signIn({ user, account, profile }) {
+      if (account.provider === "google") {
+        const client = await clientPromise;
+        const db = client.db("care");
+        const exitingUser = await db.collection("users").findOne({ email: user.email });
+
+        if (!exitingUser) {
+          const newUser = await db.collection("users").insertOne({
+            name: user.name,
+            email: user.email,
+            role: "user",
+            contact: user.phoneNumber || ""  ,
+            image: user.image,
+            status: "active",
+            createAt: new Date()
+          });
+
+          user.id = newUser.insertedId.toString();
+          user.role = "user";
+        } 
+        else {
+          user.id = exitingUser._id.toString();
+          user.role = exitingUser.role;
+        }
       }
-      return token
+
+      return true;
     },
     async session({ session, token }) {
       if (session.user) {
@@ -61,6 +87,6 @@ export const authOptions = {
     }
   }, 
    pages: {
-    signIn: "/login",
+    signIn: "/",
   }
 } 
