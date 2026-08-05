@@ -2,11 +2,12 @@
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation'; 
 import React, { useState } from 'react';
 
 const Navbar = () => { 
   const router=useRouter() 
+  const pathname=usePathname()
   const {data:session,status}=useSession()
   const [search,setSearch]=useState("")
     return (
@@ -41,15 +42,17 @@ const Navbar = () => {
           className="menu menu-sm dropdown-content mt-3 w-64 rounded-2xl bg-base-100 p-3 shadow-xl border border-base-300"
         >
           <li>
-            <button>
-              <Link href="/">
+            <button> 
+              
+
+              <Link href="/" className={pathname === "/" ? "text-primary font-bold " : ""}>
               Home</Link>
             </button>
           </li>
 
           <li>
             <button>
-              <Link href="/services">
+              <Link href="/services" className={pathname === "/services" ? "text-primary font-bold " : ""}>
                 Services
               </Link>
             </button>
@@ -58,7 +61,7 @@ const Navbar = () => {
 
           <li>
             <button>
-              <Link href="/contact">
+              <Link href="/contact" className={pathname === "/contact" ? "text-primary font-bold " : ""}>
                 Contact
               </Link>
             </button>
@@ -91,18 +94,24 @@ const Navbar = () => {
 
         <li>
           <button className="rounded-full">
-            <Link href="/">Home</Link>
+            <Link href="/" className={pathname === "/" ? "text-primary font-bold " : ""}>
+              Home
+            </Link>
           </button>
         </li>
           <li>
           <button className="rounded-full">
-            <Link href="/services">Services</Link>
+            <Link href="/services" className={pathname === "/services" ? "text-primary font-bold " : ""}>
+              Services
+            </Link>
           </button>
         </li> 
 
          <li>
             <button className="rounded-full">
-              <Link href="/contact">Contact</Link>
+              <Link href="/contact" className={pathname === "/contact" ? "text-primary font-bold " : ""}>
+                Contact
+              </Link>
             </button>
         </li>
 
@@ -144,7 +153,7 @@ const Navbar = () => {
       </label>
 
        <div className="flex items-center gap-3">
-        {/* Loading হলে কিছুক্ষণ কিছু দেখাবে না */}
+        
         {status === "loading" ? null : session ? (
           <>
             <span className="hidden md:block font-medium">

@@ -1,7 +1,10 @@
 import { Ambulance, CalendarCheck, Lock, ShieldCheck } from 'lucide-react';
 import React from 'react';
 
-const About = () => {
+const About = () => { 
+
+
+
   return (
     <section className="py-20 px-6">
       <div className="max-w-7xl mx-auto">

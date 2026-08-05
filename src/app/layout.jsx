@@ -16,8 +16,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "Care.xyz",
-  description: "Care.xyz is a platform that connects people with care services and resources.",
+  title: "Care.io",
+  description: "Professional caregiving services",
+  keywords: ["care", "health", "nursing"],
+  authors: [{ name: "Fuad Hasan" }],
 };
 
 export default function RootLayout({ children }) {

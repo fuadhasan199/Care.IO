@@ -1,28 +1,51 @@
-
 import BackButton from "@/app/components/Backbtn";
 import Image from "next/image";
 
 async function GetService(id) {
-  const res = await fetch(`http://localhost:3000/api/services/${id}`, { cache: "no-store" }) 
-  return res.json()
+  const res = await fetch(`http://localhost:3000/api/services/${id}`, { cache: "no-store" });
+  return res.json();
+}
+
+
+export async function generateMetadata({ params }) {
+  const { id } = await params;
+  const service = await GetService(id);
+
+  if (!service || !service.title) {
+    return {
+      title: "Service Details - Care.io",
+      description: "Caregiving service details page",
+    };
+  }
+
+  return {
+    title: `${service.title} - Care.io`,
+    description: service.shortDescription || service.description || "Caregiving service details",
+    openGraph: {
+      title: `${service.title} - Care.io`,
+      description: service.shortDescription || service.description,
+      images: [
+        {
+          url: service.image,
+          width: 800,
+          height: 500,
+          alt: service.title,
+        },
+      ],
+    },
+  };
 }
 
 const ViewDetails = async ({ params }) => {
-  const { id } = await params
-  const service = await GetService(id)
-  
- 
-  return ( 
-    
-     
-   <div className="max-w-5xl mx-auto my-8 p-1 sm:p-2 bg-gradient-to-br from-[#1F4D42] to-[#E8846B] rounded-3xl shadow-2xl"> 
-   <BackButton />
-   
+  const { id } = await params;
+  const service = await GetService(id);
+
+  return (
+    <div className="max-w-5xl mx-auto my-8 p-1 sm:p-2 bg-gradient-to-br from-[#1F4D42] to-[#E8846B] rounded-3xl shadow-2xl">
+      <BackButton />
+
       <div className="bg-white/95 backdrop-blur-md rounded-[22px] overflow-hidden shadow-sm">
-      
-        
-        <div className="relative w-full h-72 sm:h-96"> 
-          
+        <div className="relative w-full h-72 sm:h-96">
           <Image
             src={service.image}
             alt={service.title}
@@ -30,9 +53,9 @@ const ViewDetails = async ({ params }) => {
             height={500}
             className="w-full h-full object-cover"
             priority
-          /> 
+          />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-          
+
           {/* Badge & Price overlay on image */}
           <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
             <span className="px-3.5 py-1.5 text-xs font-semibold text-white bg-[#1F4D42]/90 backdrop-blur-md rounded-full shadow-sm">
@@ -52,7 +75,7 @@ const ViewDetails = async ({ params }) => {
             <h1 className="text-2xl sm:text-3xl font-bold text-[#1F4D42] tracking-tight">
               {service.title}
             </h1>
-            
+
             <div className="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-200/60 px-3 py-1 rounded-full text-amber-700 font-semibold text-sm w-fit">
               <span className="text-amber-500">★</span>
               <span>{service.rating}</span>

@@ -3,9 +3,14 @@ import Link from 'next/link';
 import React from 'react';
 
 async function GetServices(search) { 
-  const res = await fetch(`http://localhost:3000/api/services?search=${search}`, { cache: "no-store" })
+  const res = await fetch(`http://localhost:3000/api/services?search=${search}`,{ cache: "no-store" })
   return res.json()
 }
+
+export const metadata ={
+       title:"Services - Care.io",
+       description:"Browse our professional caregiving services including baby care, elderly care, and patient care. Find the right care for your loved ones with Care.io.",
+    }
 
 const Services = async ({searchParams}) => {
    const params =await searchParams
@@ -14,7 +19,9 @@ const Services = async ({searchParams}) => {
   
 
   return (
-    <div className="bg-base-100 p-5">
+    <div className="bg-base-100 p-5"> 
+
+   
 
       {/* Heading & description */}
       <div className="max-w-7xl mx-auto text-center py-3 px-3">
