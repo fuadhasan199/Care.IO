@@ -66,6 +66,17 @@ const Navbar = () => {
               </Link>
             </button>
           </li> 
+
+   <li>
+            <button>
+              <Link href="/dashboard" className={pathname === "/dashboard" ? "text-primary font-bold " : ""}>
+                Dashboard
+              </Link>
+            </button>
+          </li> 
+
+
+
           {status === "loading" ? null : session ? (
   <li>
     <button onClick={() => signOut({ callbackUrl: "/" })}>
@@ -113,7 +124,15 @@ const Navbar = () => {
                 Contact
               </Link>
             </button>
-        </li>
+        </li> 
+
+           <li>
+            <button>
+              <Link href="/dashboard" className={pathname === "/dashboard" ? "text-primary font-bold " : ""}>
+                Dashboard
+              </Link>
+            </button>
+          </li>
 
       </ul>
     </div>

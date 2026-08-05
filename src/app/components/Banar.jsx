@@ -3,6 +3,7 @@ import Image from 'next/image';
 import React from 'react';
 import { GrLinkNext } from 'react-icons/gr';
 import {motion} from "motion/react"
+import Link from 'next/link';
 
 const Banar = () => {
     return (
@@ -51,13 +52,14 @@ const Banar = () => {
                   {service}
                 </span>
               ))}
-            </div>
+            </div> 
 
             {/* Button */}
             <div className="mt-7 ">
               <button className="bg-sky-600 hover:bg-sky-700 text-white px-8 py-3 rounded-xl font-semibold
-               text-md transition duration-300 shadow-lg hover:shadow-xl flex  items-center gap-2">
-                Book Now <GrLinkNext size={16} className="mt-1" />
+               text-md transition duration-300 shadow-lg hover:shadow-xl flex  items-center gap-2"> 
+               <Link href="/services">Book Now </Link> <GrLinkNext size={16} className="mt-1" />
+                 
               </button>
             </div>
           </div>
