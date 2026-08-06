@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import {
   PanelLeftOpen,
-  LayoutDashboard,
+  
   CalendarCheck,
   User,
   BriefcaseMedical,
@@ -77,12 +77,6 @@ const DashboardLayout = ({ children }) => {
               </Link>
             </li>
 
-            <li>
-              <Link href="/dashboard/settings" className="rounded-xl">
-                <Settings size={20} />
-                Settings
-              </Link>
-            </li>
 
           </ul>
 
