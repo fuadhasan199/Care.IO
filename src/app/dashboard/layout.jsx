@@ -1,3 +1,4 @@
+"use client"
 import React from 'react';
 import Link from 'next/link';
 import {
@@ -7,9 +8,12 @@ import {
   User,
   BriefcaseMedical,
   Settings,
-} from "lucide-react";
+} from "lucide-react"; 
+import { useSession } from 'next-auth/react';
 
-const DashboardLayout = ({ children }) => {
+
+const DashboardLayout = ({ children }) => { 
+  const {data:session,status}=useSession()
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -46,7 +50,7 @@ const DashboardLayout = ({ children }) => {
           {/* User Info Section */}
           <div className="p-6 border-b border-base-300">
             <h1 className="text-xl font-bold text-primary">
-              User Name {/* 👈 dynamic name bosabo pore functioal kaj korar somoy  */}
+              {session?.user?.name || "Guest User"}
             </h1>
             <p className="text-sm text-base-content/60">
               Dashboard

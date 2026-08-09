@@ -29,7 +29,7 @@ export const authOptions = {
         return null
        } 
         return {
-           id:user._id,
+           id:user._id.toString(),
            name:user.name,
            email:user.email,
            role:user.role
@@ -49,7 +49,7 @@ export const authOptions = {
   session: {
     strategy: "jwt",
   }, 
-  callbacks: {
+callbacks: {
     async signIn({ user, account, profile }) {
       if (account.provider === "google") {
         const client = await clientPromise;
@@ -61,7 +61,7 @@ export const authOptions = {
             name: user.name,
             email: user.email,
             role: "user",
-            contact: user.phoneNumber || ""  ,
+            contact: user.phoneNumber || "",
             image: user.image,
             status: "active",
             createAt: new Date()
@@ -69,23 +69,34 @@ export const authOptions = {
 
           user.id = newUser.insertedId.toString();
           user.role = "user";
-        } 
-        else {
+        } else {
           user.id = exitingUser._id.toString();
           user.role = exitingUser.role;
         }
       }
-
       return true;
+    },
+    async jwt({ token, user, trigger, session }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+      }
+      if (trigger === "update" && session) {
+        if (session.name) token.name = session.name;
+        if (session.image) token.image = session.image;
+      }
+      return token;
     },
     async session({ session, token }) {
       if (session.user) {
-        session.user.role = token.role
-        session.user.id = token.id
+        session.user.role = token.role;
+        session.user.id = token.id;
+        session.user.name = token.name || session.user.name;
+        session.user.image = token.image || session.user.image;
       }
-      return session
+      return session;
     }
-  }, 
+}, 
    pages: {
     signIn: "/",
   }
