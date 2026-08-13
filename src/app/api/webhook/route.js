@@ -31,6 +31,7 @@ export async function POST(req) {
       date,
       customerEmail: session.customer_details?.email,
       sessionId: session.id,
+     
     })
   }
 
