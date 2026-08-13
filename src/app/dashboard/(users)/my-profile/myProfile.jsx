@@ -153,7 +153,7 @@ export default function myProfile() {
               <button className="btn btn-outline">Cancel</button>
             </form>
           </div>
-        </div>
+        </div> 
       </dialog>
 
       <dialog id="update_image_modal" className="modal modal-bottom sm:modal-middle">

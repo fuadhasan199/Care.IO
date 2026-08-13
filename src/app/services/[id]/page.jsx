@@ -1,11 +1,12 @@
 import BackButton from "@/app/components/Backbtn";
+import BookNowButton from "@/app/components/BookNowBtn";
+
 import Image from "next/image";
 
 async function GetService(id) {
   const res = await fetch(`http://localhost:3000/api/services/${id}`, { cache: "no-store" });
   return res.json();
 }
-
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
@@ -56,7 +57,6 @@ const ViewDetails = async ({ params }) => {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
 
-          {/* Badge & Price overlay on image */}
           <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
             <span className="px-3.5 py-1.5 text-xs font-semibold text-white bg-[#1F4D42]/90 backdrop-blur-md rounded-full shadow-sm">
               {service.category}
@@ -68,9 +68,7 @@ const ViewDetails = async ({ params }) => {
           </div>
         </div>
 
-        {/* Content Section */}
         <div className="p-6 sm:p-8">
-          {/* Title & Rating */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <h1 className="text-2xl sm:text-3xl font-bold text-[#1F4D42] tracking-tight">
               {service.title}
@@ -82,16 +80,13 @@ const ViewDetails = async ({ params }) => {
             </div>
           </div>
 
-          {/* Description */}
           <p className="mt-4 text-slate-600 leading-relaxed text-sm sm:text-base">
             {service.description}
           </p>
 
           <hr className="my-6 border-slate-100" />
 
-          {/* Features & Covered Services Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Features */}
             {service.features && service.features.length > 0 && (
               <div>
                 <h2 className="text-sm font-bold uppercase tracking-wider text-[#1F4D42]/80 mb-3">
@@ -110,7 +105,6 @@ const ViewDetails = async ({ params }) => {
               </div>
             )}
 
-            {/* Covered Services */}
             {service.coveredServices && service.coveredServices.length > 0 && (
               <div>
                 <h2 className="text-sm font-bold uppercase tracking-wider text-[#1F4D42]/80 mb-3">
@@ -130,12 +124,8 @@ const ViewDetails = async ({ params }) => {
             )}
           </div>
 
-          {/* Action Button */}
-          <div className="mt-8 pt-4 flex justify-end">
-            <button className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#1F4D42] hover:bg-[#163931] text-white font-semibold text-sm tracking-wide shadow-lg shadow-[#1F4D42]/20 hover:shadow-none transition-all duration-200 active:scale-[0.98]">
-              Book Now
-            </button>
-          </div>
+          {/* Client component ekhane call hocche */}
+          <BookNowButton service={service} />
         </div>
       </div>
     </div>
