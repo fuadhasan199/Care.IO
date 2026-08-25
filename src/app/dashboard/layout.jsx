@@ -8,12 +8,15 @@ import {
   User,
   BriefcaseMedical,
   Settings,
+  MessageSquare,
+  Users,
 } from "lucide-react"; 
 import { useSession } from 'next-auth/react';
 
 
 const DashboardLayout = ({ children }) => { 
-  const {data:session,status}=useSession()
+  const {data:session,status}=useSession() 
+  const isAdmin=session?.user?.role==="admin"
   return (
     <div className="drawer lg:drawer-open">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -56,10 +59,10 @@ const DashboardLayout = ({ children }) => {
               Dashboard
             </p>
           </div>
-
+      
           {/* Menu */}
-          <ul className="menu p-4 gap-2">
-
+          <ul className="menu p-4 gap-2"> 
+                 {/* user route */}
             <li>
               <Link href="/dashboard/my-bookings" className="rounded-xl">
                 <CalendarCheck size={20} />
@@ -79,10 +82,45 @@ const DashboardLayout = ({ children }) => {
                 <BriefcaseMedical size={20} />
                 Services
               </Link>
-            </li>
+            </li> 
+            </ul>
+             {/* admin routes */}  
+              
+
+             
+             {isAdmin && (   
+           
+           <ul className="menu p-4 gap-2"> 
+             
+          
+            <Link href="/dashboard/manage-users" className="rounded-xl">
+            <Users size={20} />
+             Manage Users
+            </Link>
+           
+           
+           <li>
+            <Link href="/dashboard/manage-services" className="rounded-xl">
+             <Settings size={20} />
+              Manage Services
+             </Link>
+           </li>
+
+           <li>
+            <Link href="/dashboard/messages" className="rounded-xl">
+             <MessageSquare size={20} />
+               Messages
+              </Link>
+           </li>
+            </ul>
+               
+             )} 
+             
+
+        
 
 
-          </ul>
+          
 
         </aside>
       </div>
