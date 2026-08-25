@@ -91,8 +91,8 @@ const MyBookings = async () => {
                     </td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
+              </tbody> 
+            </table> 
           </div>
 
           {/* Mobile Cards */}
