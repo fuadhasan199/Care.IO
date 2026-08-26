@@ -60,8 +60,10 @@ const DashboardLayout = ({ children }) => {
             </p>
           </div>
       
-          {/* Menu */}
-          <ul className="menu p-4 gap-2"> 
+          {/* Menu */} 
+          {/* user route */} 
+          {session?.user?.role !=="admin" &&(
+            <ul className="menu p-4 gap-2"> 
                  {/* user route */}
             <li>
               <Link href="/dashboard/my-bookings" className="rounded-xl">
@@ -84,6 +86,9 @@ const DashboardLayout = ({ children }) => {
               </Link>
             </li> 
             </ul>
+              
+          )}
+          
              {/* admin routes */}  
               
 
@@ -92,11 +97,14 @@ const DashboardLayout = ({ children }) => {
            
            <ul className="menu p-4 gap-2"> 
              
-          
+            <li> 
+
+            
             <Link href="/dashboard/manage-users" className="rounded-xl">
-            <Users size={20} />
-             Manage Users
+            <Users size={20} /> Manage Users
+            
             </Link>
+            </li>
            
            
            <li>
