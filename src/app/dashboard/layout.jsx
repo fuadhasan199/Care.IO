@@ -100,7 +100,7 @@ const DashboardLayout = ({ children }) => {
             <li> 
 
             
-            <Link href="/dashboard/manage-users" className="rounded-xl">
+            <Link href="/dashboard/manage-user" className="rounded-xl">
             <Users size={20} /> Manage Users
             
             </Link>
@@ -108,14 +108,14 @@ const DashboardLayout = ({ children }) => {
            
            
            <li>
-            <Link href="/dashboard/manage-services" className="rounded-xl">
+            <Link href="/dashboard/manageServices" className="rounded-xl">
              <Settings size={20} />
               Manage Services
              </Link>
            </li>
 
            <li>
-            <Link href="/dashboard/messages" className="rounded-xl">
+            <Link href="/dashboard/message" className="rounded-xl">
              <MessageSquare size={20} />
                Messages
               </Link>
