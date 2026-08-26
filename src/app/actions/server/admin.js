@@ -11,11 +11,11 @@ export const getAllUsers=async()=>{
      const db=client.db("care") 
      const users=await db.collection("users").find().sort({createdAt:-1}).toArray()
      return users.map(user=>({
-         _id: u._id.toString(),
-    name: u.name,
-    email: u.email,
-    role: u.role,
-    status: u.status,
+         _id: user._id.toString(),
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    status: user.status,
      }))
 } 
 export const makeAdmin = async (userId) => {
