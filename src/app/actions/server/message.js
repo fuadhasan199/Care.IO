@@ -29,4 +29,14 @@ export const getAllMessages=async()=>{
        ...m,
        _id:m._id.toString(),
   }))
+} 
+
+export const markMessageRead = async (id) => {
+  const client = await clientPromise
+  const db = client.db("care")
+  await db.collection("messages").updateOne(
+    { _id: new ObjectId(id) },
+    { $set: { status: "read" } }
+  )
+  return { success: true }
 }
