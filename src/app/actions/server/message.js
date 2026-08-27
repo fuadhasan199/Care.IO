@@ -20,3 +20,13 @@ export const sendMessage=async({name,email,subject,message})=>{
        return {success:true,insertedId:result.insertedId.toString()}
 } 
 
+export const getAllMessages=async()=>{ 
+
+       const client = await clientPromise
+  const db = client.db("care")
+  const messages=await db.collection("messages").find().sort({createAt:-1}).toArray() 
+  return messages.map((m)=>({
+       ...m,
+       _id:m._id.toString(),
+  }))
+}
