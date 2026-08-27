@@ -12,9 +12,11 @@ import {
   User,
   HelpCircle
 } from 'lucide-react';
+import { sendMessage } from '../actions/server/message';
 
 const ContactPage = () => {
-  const [isSubmitted, setIsSubmitted] = useState(false) 
+  const [isSubmitted, setIsSubmitted] = useState(false)  
+ const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -22,10 +24,16 @@ const ContactPage = () => {
     message: ''
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit =async (e) => {
     e.preventDefault();
-    console.log('Contact Form Submitted:', formData);
+    
+    setLoading(true);
+    const res=await sendMessage(formData) 
+    setLoading(false);
+     if (res.success) {
     setIsSubmitted(true);
+    setFormData({ name: '', email: '', subject: 'General Query', message: '' })
+  }
   };
 
   return (
@@ -232,13 +240,12 @@ const ContactPage = () => {
                   </div>
 
                   {/* Submit Button */}
-                  <button
-                    type="submit"
-                    className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-medium rounded-xl shadow-lg shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 group"
-                  >
-                    Send Message
-                    <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </button>
+                 <button   type="submit"disabled={loading}
+               className="w-full py-3 px-4 bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-medium rounded-xl shadow-lg shadow-indigo-500/25 transition-all flex items-center justify-center gap-2 group disabled:opacity-60"
+>
+  {loading ? "Sending..." : "Send Message"}
+  <Send size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+</button>
 
                 </form>
               )}
