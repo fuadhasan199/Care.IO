@@ -40,3 +40,22 @@ export const markMessageRead = async (id) => {
   )
   return { success: true }
 }
+
+export const replyToMessage = async (id, toEmail, subject, replyText) => {
+  const client = await clientPromise
+  const db = client.db("care")
+
+  await transporter.sendMail({
+    from: process.env.GMAIL_USER,
+    to: toEmail,
+    subject: `Re: ${subject}`,
+    text: replyText,
+  })
+
+  await db.collection("messages").updateOne(
+    { _id: new ObjectId(id) },
+    { $set: { status: "replied" } }
+  )
+
+  return { success: true }
+}
