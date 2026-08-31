@@ -94,7 +94,7 @@ const Navbar = () => {
       {/* Logo */}
       <div className=""> 
          <Link href="/">  
-         <Image src="/icon2.png"alt="Logo" width={115} height={80} className="rounded-full" />
+         <Image src="/icon2.png"alt="Logo" width={130} height={100} className="rounded-full" />
          </Link>
       </div>
     </div>

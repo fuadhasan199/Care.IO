@@ -1,111 +1,105 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
+import { getAllServices } from "@/app/actions/server/service";
 
-async function GetServices(search) { 
-  const res = await fetch(`http://localhost:3000/api/services?search=${search}`,{ cache: "no-store" })
-  return res.json()
-}
+export const metadata = {
+  title: "Services - Care.io",
+  description: "Browse our professional caregiving services including baby care, elderly care, and patient care.",
+};
 
-export const metadata ={
-       title:"Services - Care.io",
-       description:"Browse our professional caregiving services including baby care, elderly care, and patient care. Find the right care for your loved ones with Care.io.",
-    }
-
-const Services = async ({searchParams}) => {
-   const params =await searchParams
-   const search =params.search || ""
-  const services = await GetServices(search)
+const Services = async ({ searchParams }) => {
+  const params = await searchParams;
+  const search = params?.search || "";
   
+  // Call server function directly instead of fetching localhost HTTP endpoint
+  const services = await getAllServices(search);
 
   return (
-    <div className="bg-base-100 p-5"> 
-
-   
-
+    <div className="bg-base-100 p-5">
       {/* Heading & description */}
       <div className="max-w-7xl mx-auto text-center py-3 px-3">
         <span className="inline-block px-4 py-1 mb-4 text-sm font-semibold text-primary bg-primary/10 rounded-full">
           Our Services
         </span>
-
         <h1 className="text-4xl md:text-5xl font-bold text-base-content leading-tight">
           Find the Right Care for Your Loved Ones
         </h1>
-
         <p className="mt-5 text-base md:text-lg text-base-content/70 leading-8">
-          Explore a wide range of personalized care services delivered by trained and
-          verified professionals. Choose the support that best fits your family's
-          needs.
+          Explore a wide range of personalized care services delivered by trained and verified professionals.
         </p>
       </div>
-      {/* Heading & description End */}
-
-     
-  
 
       {/* Service cards */}
-      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 pb-12">
-        {services.map((s) => (
-          <div
-            key={s._id}
-            className="group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-black/5 shadow-sm hover:shadow-lg transition-shadow duration-300"
-          >
-            {/* Image */}
-            <div className="relative h-48 w-full overflow-hidden">
-              <Image 
-              width={500}
-              height={500}
-                src={s.image}
-                alt={s.title}
-                className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
-              />
-              <span className="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-[#1F4D42]">
-                {s.category}
-              </span>
-              <span className="absolute top-3 right-3 flex items-center gap-1 bg-[#1F4D42] text-white px-2.5 py-1 rounded-full text-xs font-semibold">
-                ★ {s.rating}
-              </span>
-            </div>
-
-            {/* Content */}
-            <div className="flex flex-col flex-1 p-5">
-              <h3 className="text-lg font-bold text-[#1F4D42] leading-snug">
-                {s.title}
-              </h3>
-              <p className="mt-2 text-sm text-slate-500 leading-6 line-clamp-2">
-                {s.shortDescription}
-              </p>
-
-              {/* Feature chips */}
-              <div className="mt-4 flex flex-wrap gap-2">
-                {s.features?.slice(0, 3).map((f, i) => (
-                  <span
-                    key={i}
-                    className="text-[11px] font-medium text-[#E8846B] bg-[#E8846B]/10 px-2.5 py-1 rounded-full"
-                  >
-                    {f}
-                  </span>
-                ))}
+      <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-6 pb-12 mt-8">
+        {services.length > 0 ? (
+          services.map((s) => (
+            <div
+              key={s._id}
+              className="group relative flex flex-col bg-white rounded-2xl overflow-hidden border border-black/5 shadow-sm hover:shadow-lg transition-shadow duration-300"
+            >
+              {/* Image */}
+              <div className="relative h-48 w-full overflow-hidden bg-slate-100">
+                <Image
+                  width={300}
+                  height={300}
+                  src={s.image}
+                  alt={s?.title || "Service image"}
+                  className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <span className="absolute top-3 left-3 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-xs font-semibold text-[#1F4D42]">
+                  {s.category}
+                </span>
+                <span className="absolute top-3 right-3 flex items-center gap-1 bg-[#1F4D42] text-white px-2.5 py-1 rounded-full text-xs font-semibold">
+                  ★ {s.rating}
+                </span>
               </div>
 
-              {/* Footer */}
-              <div className="mt-auto pt-5 flex items-center justify-between border-t border-black/5 mt-5">
-                <div>
-                  <span className="text-xl font-bold text-[#1F4D42]">
-                    ৳{s.pricePerDay}
-                  </span>
-                  <span className="text-xs text-slate-400"> /day</span>
+              {/* Content */}
+              <div className="flex flex-col flex-1 p-5">
+                <h3 className="text-lg font-bold text-[#1F4D42] leading-snug">
+                  {s.title}
+                </h3>
+                <p className="mt-2 text-sm text-slate-500 leading-6 line-clamp-2">
+                  {s.shortDescription}
+                </p>
+
+                {/* Feature chips */}
+                <div className="mt-4 flex flex-wrap gap-2">
+                  {s.features?.slice(0, 3).map((f, i) => (
+                    <span
+                      key={i}
+                      className="text-[11px] font-medium text-[#E8846B] bg-[#E8846B]/10 px-2.5 py-1 rounded-full"
+                    >
+                      {f}
+                    </span>
+                  ))}
                 </div>
-                <Link href={`/services/${s._id}`} className="px-4 py-2 rounded-full bg-[#1F4D42] text-white text-sm font-semibold hover:bg-[#163931] transition-colors flex items-center justify-center">
-                  Book Now
-                </Link>
+
+                {/* Footer */}
+                <div className="mt-auto pt-5 flex items-center justify-between border-t border-black/5">
+                  <div>
+                    <span className="text-xl font-bold text-[#1F4D42]">
+                      ৳{s.pricePerDay}
+                    </span>
+                    <span className="text-xs text-slate-400"> /day</span>
+                  </div>
+                  <Link
+                    href={`/services/${s._id}`}
+                    className="px-4 py-2 rounded-full bg-[#1F4D42] text-white text-sm font-semibold hover:bg-[#163931] transition-colors flex items-center justify-center"
+                  >
+                    Book Now
+                  </Link>
+                </div>
               </div>
             </div>
+          ))
+        ) : (
+          <div className="col-span-full text-center py-12 text-slate-500">
+            No services found.
           </div>
-        ))}
+        )}
       </div>
-
     </div>
   );
 };
