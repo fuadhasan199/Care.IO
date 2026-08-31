@@ -396,7 +396,7 @@ const ManageServices = () => {
       </div>
 
     
-          Add / Edit Modal
+         
      
       {showModal && (
 
