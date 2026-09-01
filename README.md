@@ -1,36 +1,181 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Care.io 🏥
 
-## Getting Started
+**Care.io** is a modern healthcare service and appointment booking platform built with **Next.js**. It helps users explore healthcare services, book required care, and manage their activities through a simple and user-friendly interface.
 
-First, run the development server:
+The platform also includes an **admin dashboard** for managing users, services, and platform activities.
+
+## 🌐 Live Website
+
+[Care.io](https://care-io-roan.vercel.app)
+
+---
+
+## ✨ Key Features
+
+- 🏥 Browse different healthcare services
+- 📋 View detailed information about individual services
+- 📅 Book healthcare services
+- 🔐 User authentication with **NextAuth.js**
+- 🔑 Email/password authentication
+- 🌐 Google authentication
+- 👤 User profile and session management
+- 🛡️ Protected routes with middleware
+- 👨‍💼 Admin dashboard
+- 👥 Manage users from admin dashboard
+- ⭐ Make users admin
+- 🚫 Block/unblock users
+- 🧰 Manage services (add / update / delete)
+- 💬 User & guest messaging system with admin reply
+- 📊 Admin-focused management interface
+- 📧 Email functionality using **Nodemailer**
+- 🗄️ MongoDB database integration
+- 📱 Responsive user interface
+- 🌙 Clean and modern healthcare-focused UI
+
+---
+
+## 🛠️ Technologies Used
+
+### Frontend
+
+- Next.js
+- React.js
+- JSX
+- JavaScript
+- Tailwind CSS
+- DaisyUI
+- Lucide React
+- React Icons
+- SweetAlert2
+
+### Backend
+
+- Next.js API Routes
+- Next.js Server Actions
+- Node.js
+- MongoDB
+- MongoDB Atlas
+
+### Authentication & Security
+
+- NextAuth.js
+- Google OAuth
+- Credentials Authentication
+- JWT-based sessions
+- Next.js Middleware
+- bcrypt
+
+### Other Tools
+
+- Nodemailer
+- Vercel
+- Git & GitHub
+
+---
+
+## 🚀 Getting Started
+
+Clone the repository:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/fuadhasan199/Care.IO.git
 ```
 
-Open [https://care-io-roan.vercel.app](https://care-io-roan.vercel.app) with your browser to see the result.
+Install dependencies:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```bash
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🔑 Authentication
 
-## Learn More
+Care.io uses **NextAuth.js** for authentication and session management.
 
-To learn more about Next.js, take a look at the following resources:
+Supported authentication methods include:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Email & Password
+- Google Sign-In
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Role-based access is also implemented so that administrative functionality is available only to authorized users.
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 👨‍💼 Admin Dashboard
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The admin dashboard provides management functionality for the platform.
+
+Admins can:
+
+- View and manage users
+- Make users administrators
+- Block or unblock users
+- Add, update, and delete services
+- View and reply to user/guest messages
+- Access protected administrative routes
+
+Protected routes are handled using **Next.js Middleware** and authentication tokens.
+
+---
+
+## 📧 Email System
+
+The project uses **Nodemailer** for sending emails from the application, including admin replies to user messages.
+
+---
+
+## 📱 Responsive Design
+
+Care.io is designed to provide a clean experience across different screen sizes, including:
+
+- Desktop
+- Tablet
+- Mobile
+
+The UI is built using **Tailwind CSS** and **DaisyUI**.
+
+---
+
+## 📦 Main Dependencies
+
+Some of the major packages used in this project:
+
+```bash
+next
+react
+next-auth
+mongodb
+bcrypt
+nodemailer
+tailwindcss
+daisyui
+lucide-react
+react-icons
+sweetalert2
+```
+
+---
+
+## 🚀 Deployment
+
+The application is deployed using **Vercel**.
+
+Live project: [https://care-io-roan.vercel.app](https://care-io-roan.vercel.app)
+
+---
+
+## 🎯 Project Goal
+
+The main goal of Care.io is to build a practical healthcare platform where users can easily discover healthcare services and manage their bookings, while administrators can efficiently manage users and platform operations.
+
+This project was also developed as a practical learning project to gain hands-on experience with **Next.js, authentication, MongoDB, server-side functionality, API development, and role-based access control**.
+
+---
+
+## 👨‍💻 Developer
+
+**Khandokar Fuad Hasan**
+Frontend & MERN Stack Developer
+
+Portfolio: [https://fuad-portfolio-ten.vercel.app](https://fuad-portfolio-ten.vercel.app)
+
+Built with ❤️ using Next.js.
