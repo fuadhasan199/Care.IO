@@ -4,13 +4,14 @@ import BookNowButton from "@/app/components/BookNowBtn";
 import Image from "next/image";
 
 async function GetService(id) {
-  const res = await fetch(`http://localhost:3000/api/services/${id}`, { cache: "no-store" });
+  const res = await fetch(`https://care-io-roan.vercel.app/api/services/${id}`, { cache: "no-store" });
   return res.json();
 }
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const service = await GetService(id);
+  const service = await GetService(id); 
+  
 
   if (!service || !service.title) {
     return {
