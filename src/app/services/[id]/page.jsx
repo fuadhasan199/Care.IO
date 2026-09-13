@@ -1,15 +1,22 @@
 import BackButton from "@/app/components/Backbtn";
 import BookNowButton from "@/app/components/BookNowBtn";
+import { authOptions } from "@/app/lib/authOption";
+import { getServerSession } from "next-auth";
 
 import Image from "next/image";
+import { redirect } from "next/navigation";
 
 async function GetService(id) {
   const res = await fetch(`https://care-io-roan.vercel.app/api/services/${id}`, { cache: "no-store" });
   return res.json();
 }
 
-export async function generateMetadata({ params }) {
-  const { id } = await params;
+export async function generateMetadata({ params }) { 
+
+  const { id } = await params; 
+
+
+  
   const service = await GetService(id); 
   
 
@@ -39,7 +46,11 @@ export async function generateMetadata({ params }) {
 }
 
 const ViewDetails = async ({ params }) => {
-  const { id } = await params;
+  const { id } = await params;  
+  const session = await getServerSession(authOptions);
+    if (!session) {
+    redirect(`/login?callbackUrl=/services/${id}`);
+  } 
   const service = await GetService(id);
 
   return (
